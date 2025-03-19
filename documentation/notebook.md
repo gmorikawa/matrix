@@ -55,3 +55,108 @@ php artisan serve
 
 * [Encryption - Laravel 12.x - The PHP Framework For Web Artisans](https://laravel.com/docs/12.x/encryption), accessed on March 19, 2025;
 * [Installation - Laravel 12.x - The PHP Framework For Web Artisans](https://laravel.com/docs/12.x/installation#databases-and-migrations), accessed on March 19, 2025;
+
+## Eloquent ORM and Data Modeling
+
+Instead of creating manually the model class, it is possible to execute the command `make:model <model_name>` to create a file with a model boilerplate. The generated file is located on `app/Models` directory under the name `<model_name>.php`. The generated file looks like this:
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Repository extends Model
+{
+}
+```
+
+Inside the class, it is possible to define some special properties that will configure how this model is going to be represented in the database. By setting the `$table` variable, for example, it is possible to control how the table related to this model will be named. By default, _Eloquent_ will use a snake-case plural form of the model's name.
+
+As a reference, I have created a model `Repository` and gave the inital configuration as follow:
+
+```php
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Model;
+
+class Repository extends Model
+{
+    use HasUlids;
+
+    /**
+     * Customized names for created_at and updated_at default timestamps.
+     *
+     */
+    const CREATED_AT = "createdAt";
+    const UPDATED_AT = "updatedAt";
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = "repositories";
+
+    /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+
+    /**
+     * The data type of the primary key ID.
+     *
+     * @var string
+     */
+    protected $keyType = "string";
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = "id";
+}
+```
+
+In this case, I decided to use ULID instead of incremental primary key, hence the declaration `use HasUlids`. To enforce the use of ULIDs I disabled auto-increment `$incrementing = false` and set the primary key to string as `$keyType = "string"`.
+
+The `$primaryKey = "id"` used to define the name of the primary key is useless in this case, since it is already `id` by default.
+
+At last, I redefined the names for timestamps `created_at` and `updated_at` to fit in my naming convention that is camelCase.
+
+### References
+
+* [Eloquent: Getting Started - Laravel 12.x - The PHP Framework For Web Artisans](https://laravel.com/docs/12.x/eloquent), accessed on march 19, 2025;
+
+## Creating migrations
+
+Running migrations
+
+```sh
+php artisan migrate
+```
+
+Rolling back migrations
+
+```sh
+php artisan migrate:reset
+```
+
+### References
+
+* [Database: Migrations - Laravel 12.x - The PHP Framework For Web Artisans](https://laravel.com/docs/12.x/migrations), accessed on march 19, 2025;
