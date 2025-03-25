@@ -1,4 +1,4 @@
-# Notebook
+# Journal
 
 ## Laravel initial configuration
 
@@ -160,3 +160,50 @@ php artisan migrate:reset
 ### References
 
 * [Database: Migrations - Laravel 12.x - The PHP Framework For Web Artisans](https://laravel.com/docs/12.x/migrations), accessed on march 19, 2025;
+
+## Debugging Laravel application
+
+I found that debugging in PHP is not that easy like it is in javascript. And to be fair I am having a hard time figuring out what is the best way to do a 'console.log' like in this language.
+
+Following a tutorial, on the internet I decided to use `dd()` function to debug my api. It returns a full html styled document showing the structure of the object passed to the function.
+
+### References
+
+* [Echoing: dd() vs var_dump() vs print_r()](https://laraveldaily.com/post/echoing-dd-vs-var_dump-vs-print_r), accessed on March 25, 2025;
+
+## Reading user input from Request object
+
+There are two valid ways of reading input from request's body: by using `request->input(property)` or `request->property`.
+
+```php
+public function insert(Request $request)
+{
+    $newUser = new User([
+        "name" => $request->input("name"),
+        "email" => $request->input("email"),
+        "password" => $request->input("password")
+    ]);
+
+    ...
+}
+```
+
+```php
+public function insert(Request $request)
+{
+    $newUser = new User([
+        "name" => $request->name,
+        "email" => $request->email,
+        "password" => $request->password
+    ]);
+
+    ...
+}
+```
+
+Since the former way is the one documented on Laravel docs I have decided to go with that. A personal opinion, but I thing the later way of retrieving from body is somewhat confusing. The request object is supposed to have other properties other than the body values. That is why the `$request->input()` makes more sense to me.
+
+### References
+
+* [LARAVEL 11 Crash Course for Beginners 2024 | #6 Controllers &amp; Forms (Web Developer Path) - YouTube](https://www.youtube.com/watch?v=mO1HNpHmMbM&list=PL38wFHH4qYZXH8Gb7PIbmyjdsWdEJLImp&index=6), accessed on March 25, 2025;
+* [HTTP Requests - Laravel 12.x - The PHP Framework For Web Artisans](https://laravel.com/docs/12.x/requests#retrieving-input), accessed on March 25, 2025;
