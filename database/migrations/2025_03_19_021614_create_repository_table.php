@@ -6,24 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create("repositories", function (Blueprint $table) {
             $table->ulid("id");
-            $table->string("name");
-            $table->string("description");
-            $table->string("owner");
+            $table->string("name", 127);
+            $table->string("description", 511)->nullable();
+            $table->foreignUlid("owner_id");
+            $table->foreignUlid("project_id")->nullable();
             $table->timestamp("createdAt");
             $table->timestamp("updatedAt");
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::drop("repositories");
