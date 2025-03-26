@@ -12,7 +12,7 @@
 * __id__: primary key, unique, ulid;
 * __name__: varchar(127), not null;
 * __description__: varchar(511);
-* __user_id__: foreign key, __User__, not null;
+* __owner_id__: foreign key, __User__, not null;
 * __project_id__: foreign key, __Project__;
 
 ## Project
@@ -20,4 +20,4 @@
 * __id__: primary key, unique, ulid;
 * __name__: varhcar(127), not null;
 * __description__: varchar(511);
-* __user_id__: foreign key, __User__, not null;
+* __owner_id__: foreign key, __User__, not null;
