@@ -145,6 +145,12 @@ At last, I redefined the names for timestamps `created_at` and `updated_at` to f
 
 ## Creating migrations
 
+Create a migration file
+
+```sh
+php artisan make:migration <migration_name>
+```
+
 Running migrations
 
 ```sh
