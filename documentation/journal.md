@@ -213,3 +213,10 @@ Since the former way is the one documented on Laravel docs I have decided to go 
 
 * [LARAVEL 11 Crash Course for Beginners 2024 | #6 Controllers &amp; Forms (Web Developer Path) - YouTube](https://www.youtube.com/watch?v=mO1HNpHmMbM&list=PL38wFHH4qYZXH8Gb7PIbmyjdsWdEJLImp&index=6), accessed on March 25, 2025;
 * [HTTP Requests - Laravel 12.x - The PHP Framework For Web Artisans](https://laravel.com/docs/12.x/requests#retrieving-input), accessed on March 25, 2025;
+
+## Livewire component usage example
+
+### References
+
+* [Quickstart | Laravel Livewire](https://livewire.laravel.com/docs/quickstart), accessed on March 27, 2025;
+* [Installation · Flux](https://fluxui.dev/docs/installation), accessed on March 27, 2025;
