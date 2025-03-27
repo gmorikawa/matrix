@@ -14,8 +14,8 @@
 
 * Every project and repository can have one and only one owner;
 * A project is not required to create a repository;
-* Repositories can be moved to existent projects or reassigned to other project;
-* Deleting a project means to delete all the repositories linked to the project altogether;
 * The name of a project should be unique between projects of a single user;
 * The name of a repository should be unique between repositories of a single user;
-* Projects can act like a namespace, thereby, two repositories may have the same name if they are in different projects;
+* A project does not require the existance of a repository and vice-versa;
+* If a project is deleted the repositories within it are not deleted;
+* A repository can be part of many projects;
