@@ -216,6 +216,16 @@ Since the former way is the one documented on Laravel docs I have decided to go 
 
 ## Livewire component usage example
 
+_Livewire_ is a _Laravel_ framework for building interactive UI components without extensive use of Javascript. It works like Blazor for the .NET or like the server-side rendering of Next.js.
+
+_Livewire_ has a official component library called _Flux_ that uses Tailwind underneath for styling its components.
+
+There were some configurations that had to be made before _Livewire_ and _Flux_ became ready to use. But I had some troubles with the style of _Flux_ components. Turns out that I did not had Tailwind being loaded in the layout file. And since I was loading the stylesheet with a Vite directive a `manifest.json` file was needed but did not existed when I ran the first time.
+
+To solve this I had to build the Node project by running `npm run build`. After running this command, the required `manifest.json` file is generated, thus sending the required files to the page.
+
+At the end, I've decided not to use _Flux_ because most of the components are only available if I subscribe to the PRO version.
+
 ### References
 
 * [Quickstart | Laravel Livewire](https://livewire.laravel.com/docs/quickstart), accessed on March 27, 2025;
