@@ -5,6 +5,7 @@
 * __id__: primary key, unique, ulid;
 * __name__: varchar(127), not null;
 * __email__: varchar(127), unique, not null;
+* __username__: varchar(127), unique, not null;
 * __password__: varchar(255), not null;
 
 ## Repository

@@ -8,6 +8,7 @@
 * The _root_ user can see all the repositories, but a _member_ user may only see their own repositories and projects;
 * After login, the user will receive a JWT authentication token to authorize access to contents of the application;
 * A new user may only be created by a _root_ user;
+* A user must have a unique username and email address to register;
 * Users can modify their own information;
 
 ## Projects and Repository Management
