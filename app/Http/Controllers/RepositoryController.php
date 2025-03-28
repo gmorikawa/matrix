@@ -3,74 +3,58 @@
 namespace App\Http\Controllers;
 
 use App\Models\Repository;
+use App\Services\RepositoryService;
 use Illuminate\Http\Request;
 
 class RepositoryController extends Controller
 {
+    public function __construct(
+        private readonly RepositoryService $service
+    ) {}
+
     public function getByOwner(Request $request, string $owner_id)
     {
-        return Repository::all()
-            ->where("owner_id", $owner_id);
+        return $this->service->findByOwner($owner_id);
     }
 
-    public function getByProject(Request $request, string $owner_id, string $project_id)
-    {
-        return Repository::all()
-            ->where("owner_id", $owner_id)
-            ->where("project_id", $project_id);
-    }
+    // public function getByProject(Request $request, string $owner_id, string $project_id)
+    // {
+    //     return Repository::all()
+    //         ->where("owner_id", $owner_id)
+    //         ->where("project_id", $project_id);
+    // }
 
     public function getById(Request $request, string $owner_id, string $id)
     {
-        return Repository::all()
-            ->where("owner_id", $owner_id)
-            ->where("id", $id)
-            ->first();
+        return $this->service->findById($id, $owner_id);
     }
 
-    public function insert(Request $request, string $owner_id)
+    public function create(Request $request, string $owner_id)
     {
-        $newRepository = new Repository([
+        $repository = new Repository([
             "name" => $request->input("name"),
             "description" => $request->input("description"),
             "owner_id" => $owner_id,
             "project_id" => $request->input("project_id")
         ]);
 
-        $newRepository->save();
-
-        return $newRepository;
+        return $this->service->create($repository);
     }
 
     public function update(Request $request, string $owner_id, string $id)
     {
-        $repository = Repository::all()
-            ->where("owner_id", $owner_id)
-            ->where("id", $id)
-            ->first();
+        $repository = new Repository([
+            "name" => $request->input("name"),
+            "description" => $request->input("description"),
+            "owner_id" => $request->input("owner_id"),
+            "project_id" => $request->input("project_id")
+        ]);
 
-        if ($repository) {
-            $repository->name = $request->input("name");
-            $repository->description = $request->input("description");
-            $repository->project_id = $request->input("project_id");
-        }
-
-        $repository->save();
-
-        return $repository;
+        return $this->service->update($id, $repository);
     }
 
     public function remove(Request $request, string $owner_id, string $id)
     {
-        $repository = Repository::all()
-            ->where("owner_id", $owner_id)
-            ->where("id", $id)
-            ->first();
-
-        if ($repository) {
-            return $repository->delete();
-        }
-
-        return $repository;
+        return $this->service->remove($id, $owner_id);
     }
 }

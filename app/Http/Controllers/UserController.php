@@ -3,48 +3,50 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct(
+        private readonly UserService $service
+    ) {}
+
     public function getAll(Request $request)
     {
-        return User::all();
+        return $this->service->findAll();
     }
 
     public function getById(Request $request, string $id)
     {
-        return User::all()->find($id);
+        return $this->service->findById($id);
     }
 
-    public function insert(Request $request)
+    public function create(Request $request)
     {
-        $newUser = new User([
+        $user = new User([
             "name" => $request->input("name"),
             "email" => $request->input("email"),
+            "username" => $request->input("username"),
             "password" => $request->input("password")
         ]);
 
-        $newUser->save();
-
-        return $newUser;
+        return $this->service->create($user);
     }
 
     public function update(Request $request, string $id)
     {
-        $user = User::all()->find($id);
+        $user = new User([
+            "name" => $request->input("name"),
+            "email" => $request->input("email"),
+            "username" => $request->input("username")
+        ]);
 
-        if ($user) {
-            $user->name = $request->input("name");
-            $user->email = $request->input("email");
-        }
-
-        $user->save();
-
-        return $user;
+        return $this->service->update($id, $user);
     }
 
-    public function remove(Request $request, string $id) {
-        return User::destroy($id);
+    public function remove(Request $request, string $id)
+    {
+        return $this->service->remove($id);
     }
 }
