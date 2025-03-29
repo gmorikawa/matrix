@@ -230,3 +230,25 @@ At the end, I've decided not to use _Flux_ because most of the components are on
 
 * [Quickstart | Laravel Livewire](https://livewire.laravel.com/docs/quickstart), accessed on March 27, 2025;
 * [Installation · Flux](https://fluxui.dev/docs/installation), accessed on March 27, 2025;
+
+## One class per file convention
+
+The following error started to appear on console when after doing requests to the server:
+
+```txt
+[logs] ┌ 14:27:07 Illuminate\Contracts\Container\BindingResolutionException  vendor/... ┐
+[logs] │ Target class [App\Services\UserServiceImpl] does not exist.                  │
+[logs] └──────────────────────────────────────────── GET: /api/users • Auth ID: guest ┘
+```
+
+In this particular moment of the application I just had modified User and Repository controllers separating business logic in a service class. Decided to make those services injectable dependencies by using Laravel's container manager. So, I created a interface and a implementation class on the same file.
+
+After doing that the errors started to appear stating that the concrete class did not existed, even though it did.
+
+The problem is that, even if PHP allows two classes to be defined in the same file, _autoloader_ cannot find other classes because it expects that the file contains a class with file's name. Example: for a `UserService.php` file there is a `UserService` class inside it.
+
+### References
+
+* [Is PHP the only programming language that applies the one-class-per-file manifest? If yes, why? - Quora](https://www.quora.com/Is-PHP-the-only-programming-language-that-applies-the-one-class-per-file-manifest-If-yes-why#:~:text=PHP%20does%20not%20mandate%20one,class%20between%20files%20if%20needed.), accessed on March 29, 2025;
+* [symfony - PHP - Symfony2.4 Can I have multiple classes in single file? - Stack Overflow](https://stackoverflow.com/questions/24200044/php-symfony2-4-can-i-have-multiple-classes-in-single-file), accessed on March 29, 2025;
+* [PHP: Autoloading Classes - Manual](https://www.php.net/manual/en/language.oop5.autoload.php), accessed on March 29, 2025;
